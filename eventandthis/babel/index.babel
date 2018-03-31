@@ -1,0 +1,28 @@
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+  }
+
+  handleClick() {
+   // console.log("handle clicked");
+    this.setState(prevState => ({
+      isToggleOn : !prevState.isToggleOn
+    }));
+    
+  }
+
+  render() {
+    return (  //onClick={this.handleClick} 만하면 실행이 안된다. this문제임. 혹은 construtor에 
+              // this.handleClick = this.handleClick.bind(this); 해주면 여기서는 this.handleClick만하면된다.
+      <button onClick={this.handleClick.bind(this)}>  {/*bind안하면 handleClick안에서의 this는 button을 가리키게된다. */}
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    )
+  }
+}
+ReactDOM.render(
+  <Toggle />,
+  document.getElementById('root')
+);
+  
