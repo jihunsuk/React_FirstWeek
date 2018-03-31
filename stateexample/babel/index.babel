@@ -1,0 +1,85 @@
+//https://jdub7138.blog.me/221071408817 참고 사이트
+
+//함수사용
+// function Clock(props) {
+//   return (
+//    <div>
+//       <h1>Hello, world!</h1>
+//       <h2>It is {props.date.toLocaleTimeString()}.</h2> 
+//     </div>
+//   );
+// }
+
+// //클래스 사용 props
+// class Clock extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//        <h1>Hello, world!</h1>
+//        <h2>It is {this.props.date.toLocaleTimeString()}.</h2> 
+//      </div>
+//     );
+//   }
+// }
+
+function FormattedDate(props) {
+  return <h2> It is {props.date.toLocaleTimeString()}. </h2>;
+}
+
+//클래스 사용 state
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date : new Date()};
+  }
+  
+  tick(){ //setState를 통해 state를 업데이트하는 함수.
+    this.setState({
+      date : new Date()
+    });
+  }
+  
+  //컴포넌트가 돔에 render 후 실행되는 라이프사이클
+  componentDidMount() { //tick이라는것을 1초에 한번실행하고 반환되는것이 timerID에 저장된다.
+    this.timerID = setInterval(() => this.tick(), 1000);
+  }
+  
+  componentWillUnmount(){
+    clearInterval(this.timerID);
+  }
+    
+  render() {
+    return (  //state로 했기 때문에 state가 변경될 때마다 갱신된다.
+      <div>
+       <h1>Hello, world!</h1>
+       {/*<h2>It is {this.state.date.toLocaleTimeString()}.</h2> 이렇게 직접적으로 해도되고 함수만들어서 해도된다.*/}
+        <FormattedDate date={this.state.date} />
+     </div>
+    );
+  }
+}
+
+
+// function tick() {
+//   ReactDOM.render(
+//     <Clock date = {new Date()} />,
+//     document.getElementById('root')
+//   );
+// }
+
+// setInterval(tick, 1000);  //1초에 한번씩 tick을 부른다.
+function App() {
+  return (
+    <div>
+      <Clock />
+      <Clock />
+      <Clock />
+    </div>
+  );
+}
+
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
