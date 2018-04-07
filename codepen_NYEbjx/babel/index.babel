@@ -1,0 +1,39 @@
+// 1번쨰 예제
+// const numbers = [1, 2, 3, 4, 5];
+// let listItems = [];
+
+// for (number in numbers) {
+//   listItems.push(<li>{number}</li>);
+// }
+
+//2번째 예제
+// function NumberList(props) {
+//   const numbers = props.numbers;
+//   const listItems = numbers.map((number) => 
+//   <li>{number}</li>
+//   );
+//   return (
+//     <ul>{listItems}</ul>
+//   );
+// }
+// const numbers = [1, 2, 3, 4, 5];
+
+//3번쨰 예제
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => 
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+const numbers = [1, 2, 3, 4, 5];
+
+ReactDOM.render(
+  // <ul>{listItems}</ul>,  -첫번쨰 예제
+  <NumberList numbers = {numbers} />, // - 두번쨰 예제, 세번째 예제
+  document.getElementById('root')
+);
